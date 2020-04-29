@@ -1,7 +1,27 @@
 const express = require("express");
 const router = express.Router();
+const firebase = require("firebase");
 
-router.get("/", (req,res)=> res.send("Base Route"));
+const db = firebase.firestore();
+
+const posts = db.collection("posts");
+
+
+router.get("/", (req,res)=> {const postsArray = []; 
+
+posts 
+.get()
+.then((querySnapshot)=>{
+    querySnapshot.forEach((doc) => {
+        postsArray.push(doc.data());
+    });
+    return res.send(postsArray);
+})  
+.catch(function(error){
+    console.log('Error:', error);
+    return res.send(error);
+    });
+});
 
 
 module.exports = router; 
