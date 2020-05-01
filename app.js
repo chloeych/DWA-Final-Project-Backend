@@ -19,8 +19,12 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 const dashboardRoute = require("./routes/dashboard.js"); 
+const postRoute = require("./routes/post.js"); 
+const createRoute = require("./routes/createPost.js");
 
 app.use("/", dashboardRoute); 
+app.use ("/post", postRoute); 
+app.use("/create", createRoute);
 
 app.listen(port, ()=>
     console.log(`example app chilling at http://localhost:${port}`)
