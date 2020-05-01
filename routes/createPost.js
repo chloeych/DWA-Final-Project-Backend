@@ -10,7 +10,7 @@ const blogposts = db.collection("blogposts");
 
 const form = `<form action="/create/submit">
 <input type="text" name="title" placeholder="Title" />
-<input type="text" name="text" placeholder="Text" />
+<input type="file" name="image" placeholder="Photo" />
 <input type="text" name="author" placeholder="Author" />
 <button type="submit">Submit</button>
 </form>`;
