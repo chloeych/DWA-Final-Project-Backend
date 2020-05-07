@@ -1,23 +1,25 @@
 const express = require("express");
 const router = express.Router();
 const firebase = require("firebase");
-
 const db = firebase.firestore();
-
 const posts = db.collection("posts");
 
+router.get("/", (req,res)=> {
+    
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 
-router.get("/", (req,res)=> {const postsArray = []; 
+    const postsArray = []; 
 
 posts 
-.get()
-.then((querySnapshot)=>{
+ .get()
+ .then((querySnapshot)=>{
     querySnapshot.forEach((doc) => {
         postsArray.push(doc.data());
-    });
+     });
     return res.send(postsArray);
-})  
-.catch(function(error){
+     })  
+ .catch(function(error){
     console.log('Error:', error);
     return res.send(error);
     });
