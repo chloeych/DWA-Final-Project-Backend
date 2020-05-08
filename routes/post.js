@@ -8,14 +8,18 @@ const firebase = require("firebase");
 // Initialize Firestore Database 
 const db = firebase.firestore();
 
-const blogposts = db.collection("blogposts");
+const posts = db.collection("posts");
 
 // Get single blog post 
 const documentToGet = "sample";
-router.get("/", (req, res) => res.send("Post Page Loaded Successfully"));
+router.get("/", (req, res) => res.send("Please Include ID"));
 router.get("/:id", (req, res) => {
-    const queryId = req.params.queryId;
-    blogposts
+   
+   res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+
+    const queryId = req.params.id;
+    posts
     .doc(queryId)
     .get()
     .then(function(doc){

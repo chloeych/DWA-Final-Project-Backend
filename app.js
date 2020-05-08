@@ -22,6 +22,7 @@ const dashboardRoute = require("./routes/dashboard.js");
 const postRoute = require("./routes/post.js"); 
 const createRoute = require("./routes/createPost.js");
 
+
 app.use("/", dashboardRoute); 
 app.use ("/post", postRoute); 
 app.use("/create", createRoute);

@@ -1,40 +1,25 @@
-const express = require("express"); 
-
-const router = express.Router(); 
-// Include Firebase 
+const express = require("express");
+const router = express.Router();
 const firebase = require("firebase");
-// Initialize Firestore Database 
 const db = firebase.firestore();
-// Reference to Collections 
-const blogposts = db.collection("blogposts");
-
-const form = `<form action="/create/submit">
-<input type="text" name="title" placeholder="Title" />
-<input type="file" name="image" placeholder="Photo" />
-<input type="text" name="author" placeholder="Author" />
-<button type="submit">Submit</button>
-</form>`;
-
+const posts = db.collection("posts");
 // /create
-router.get("/", (req, res) => res.send(form));
-
-// /create/submit
-router.get("/submit", (req, res) =>{
- const queryParams = req.query
- const idFromTitle = queryParams.title.replace(/\s+/g, "-".toLowerCase());
-
- blogposts
-    .doc()
+router.get("/", (req, res) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  const queryParams = req.query;
+  posts
+    .doc(queryParams.id)
     .set(queryParams)
-    .then(function(doc) {
-    res.send(
-        "<h1>Submission Successful</h1><a href='/create'>Create another post </a></p>"
-    );
+    .then(function (doc) {
+      res.send({ success: "Successful submission" });
     })
-    .catch(function(error){
-      console.log('Error', error);
+    .catch(function (error) {
+      console.log("Error", error);
       res.send(`Error Submitting: ${error.toString()}`);
     });
 });
-
 module.exports = router;
