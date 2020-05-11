@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const firebase = require("firebase");
 const db = firebase.firestore();
-const posts = db.collection("posts");
+const userData = db.collection("userData");
 
 router.get("/", (req,res)=> {
     res.header("Access-Control-Allow-Origin", "*");
@@ -11,15 +11,15 @@ router.get("/", (req,res)=> {
       "Origin, X-Requested-With, Content-Type, Accept"
     );
 
-const postsArray = []; 
+const userDataArray = []; 
 
-posts 
+userData 
  .get()
  .then((querySnapshot)=>{
     querySnapshot.forEach((doc) => {
-        postsArray.push(doc.data());
+      userDataArray.push(doc.data());
      });
-    return res.send(postsArray);
+    return res.send(userDataArray);
      })  
  .catch(function(error){
     console.log('Error:', error);
